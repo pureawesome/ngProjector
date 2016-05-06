@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <td colspan="7">All Projects</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="project in projects">
+      <td>{{project.name}}  </td>
+      <td>{{project.description}}  </td>
+      <td>{{project.start_date}}  </td>
+      <td>{{project.projected_end_date}}  </td>
+      <td>{{project.actual_end_date}}  </td>
+      <td>{{project.budget}}  </td>
+      <td>{{project.cost}}  </td>
+    </tr>
+  </tbody>
+</table>
