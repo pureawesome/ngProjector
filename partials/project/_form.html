@@ -1,0 +1,38 @@
+<div class="form-group">
+  <label for="title" class="col-sm-2 control-label">Name</label>
+  <div class="col-sm-10">
+    <input type="text" ng-model="project.name" class="form-control" id="name" placeholder="Project Title Here"/>
+  </div>
+</div>
+<div class="form-group">
+  <label for="year" class="col-sm-2 control-label">Description</label>
+  <div class="col-sm-10">
+    <input type="text" ng-model="project.description" class="form-control" id="description" placeholder="Project description"/>
+  </div>
+</div>
+<div class="form-group">
+  <label for="director" class="col-sm-2 control-label">Start date</label>
+  <div class="col-sm-10">
+    <input type="text" ng-model="project.start_date" class="form-control" id="start_date" placeholder="Project Start Date"/>
+  </div>
+</div>
+<div class="form-group">
+  <label for="plot" class="col-sm-2 control-label">Budget</label>
+  <div class="col-sm-10">
+    <input type="text" ng-model="project.budget" class="form-control" id="budget" placeholder="Project Budget"/>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <input type="submit" class="btn btn-primary" value="Save"/>
+  </div>
+</div>
+
+
+
+<!--
+      <%= f.date_field :start_date, class: "form-control" %>
+      <%= f.date_field :end_date_projected, class: "form-control" %>
+      <%= f.date_field :end_date_actual, class: "form-control" %>
+      <%= f.number_field :budget, class: "form-control" %>
+      <%= f.text_field :cost, class: "form-control" %> -->
