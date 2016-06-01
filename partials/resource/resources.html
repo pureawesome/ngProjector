@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <tr>
+      <td colspan="2">All resources</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="resource in resources">
+      <td><a href="#/resources/{{resource.id}}/view">{{resource.name}}</a></td>
+      <td>{{resource.description}}  </td>
+
+    </tr>
+  </tbody>
+</table>
+
+<a href="#/resources/new">New Resource</a>
