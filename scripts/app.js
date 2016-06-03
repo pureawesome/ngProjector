@@ -1,4 +1,4 @@
-angular.module("ngProjector", ["ui.router", "ngResource", "ngMaterial", "ngProjector.projectsCtrl", "ngProjector.resourcesCtrl", "ngProjector.services"]);
+angular.module("ngProjector", ["ui.router", "ngResource", "ngMaterial", "ngMessages", "ngStorage", "ngProjector.projectsCtrl", "ngProjector.resourcesCtrl", "ngProjector.accessCtrl", "ngProjector.services"]);
 
 angular.module("ngProjector").config(function($stateProvider, $httpProvider) {
   $stateProvider
@@ -44,11 +44,33 @@ angular.module("ngProjector").config(function($stateProvider, $httpProvider) {
     controller: 'ResourceEditCtrl'
   })
 
+  .state('login', {
+    url: '/login',
+    templateUrl: 'partials/access/login.html',
+    controller: 'LoginCtrl',
+    controllerAs: 'vm'
+  })
+  .state('register', {
+    url: '/register',
+    templateUrl: 'partials/access/register.html',
+    controller: 'RegisterCtrl',
+    controllerAs: 'vm'
+  })
+
   .state("home", {
     url: '/',
     templateUrl: 'partials/home.html',
     controller: 'HomeCtrl'
   });
-}).run(function($state){
-  $state.go("home");
+}).run(function($state, $location, $localStorage, $rootScope){
+  // $state.go("home");
+  console.log($localStorage.currentUser);
+  // redirect to login page if not logged in and trying to access a restricted page
+  $rootScope.$on('$locationChangeStart', function (event, next, current) {
+    var publicPages = ['/login'];
+    var restrictedPage = publicPages.indexOf($location.path()) === -1;
+    if (restrictedPage && !$localStorage.currentUser) {
+      $location.path('/login');
+    }
+  });
 });

@@ -7,11 +7,17 @@
       $scope.projects = Project.query();
 
       $scope.deleteProject = function(project) {
-        if (popupService.showPopup('Really delete this?')) {
+        // if (popupService.showPopup('Really delete this?')) {
           project.$delete(function() {
             $window.location.href = '';
           });
-        }
+        // }
+      };
+
+      var originatorEv;
+      $scope.openMenu = function($mdOpenMenu, ev) {
+        originatorEv = ev;
+        $mdOpenMenu(ev);
       };
     })
     .controller('ProjectViewCtrl', function($scope, $stateParams, Project) {

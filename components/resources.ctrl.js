@@ -20,7 +20,7 @@
     .controller('ResourceCreateCtrl', function($scope, $state, $stateParams, Resource) {
       $scope.resource = new Resource();
 
-      $scope.addPesource = function() {
+      $scope.addResource = function() {
         $scope.resource.$save(function() {
           $state.go('resources');
         });

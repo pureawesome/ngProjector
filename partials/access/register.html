@@ -1,0 +1,38 @@
+<div layout="column" ng-cloak class="md-inline-form">
+  <md-content layout-padding>
+    <form name="registerForm" ng-submit="registerForm.$valid && vm.register()" novalidate>
+      <md-input-container class="md-block">
+        <input type="email" class="form-control" placeholder="email" name="email" ng-model="vm.email" required>
+        <div ng-show="registerForm.email.$dirty" ng-messages="registerForm.email.$error">
+          <div ng-message="required">
+            You forgot the email address.
+          </div>
+          <div ng-message="email">
+            That is not a well formed email address.
+          </div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <input type="password" class="form-control" placeholder="password" name="password" ng-model="vm.password" required>
+        <div ng-show="registerForm.password.$dirty" ng-messages="registerForm.password.$error">
+          <div ng-message="required">
+            You forgot the password.
+          </div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <input type="password" class="form-control" placeholder="confirm password" name="confirmpassword" ng-model="vm.confirmPassword" required>
+        <div ng-show="registerForm.confirmpassword.$dirty" ng-messages="registerForm.confirmpassword.$error">
+          <div ng-message="required">
+            You forgot the password confirmation.
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-button class="md-raised md-primary" type="submit">Save</md-button>
+
+      <!-- <input type="submit" class="btn btn-lg btn-primary btn-block" ng-click="register()" value="Create Account" /> -->
+      Please keep in mind that this demo is <strong>NOT</strong> using SSL so don't use your habitual password
+    </form>
+  </md-content>
+</div>

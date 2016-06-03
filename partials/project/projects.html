@@ -1,20 +1,35 @@
-<table>
-  <thead>
-    <tr>
-      <td colspan="7">All Projects</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="project in projects">
-      <td><a href="#/projects/{{project.id}}/view">{{project.name}}</a></td>
-      <td>{{project.description}}  </td>
-      <td>{{project.start_date}}  </td>
-      <td>{{project.projected_end_date}}  </td>
-      <td>{{project.actual_end_date}}  </td>
-      <td>{{project.budget}}  </td>
-      <td>{{project.cost}}  </td>
-    </tr>
-  </tbody>
-</table>
+<div flex layout="row">
+  <md-content flex id="content">
+    <md-list flex>
+      <md-subheader class="md-no-sticky">All Projects</md-subheader>
+      <md-list-item class="md-3-line" ng-repeat="project in projects">
+        <div class="md-list-item-text" layout="column">
+          <h3>{{project.name}}</h3>
+          <h4>{{project.description}}</h4>
+          <p>Start: {{project.start_date}}</p>
+          </div>
+          <div layout="column">
+          <md-menu>
+            <md-button aria-label="Options Meny" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+              <md-icon md-font-set="material-icons">more_vert</md-icon>
+            </md-button>
+            <md-menu-content width="3">
+              <md-menu-item>
+                <md-button href="#/projects/{{project.id}}/view">
+                <md-icon md-font-set="material-icons">remove_red_eye</md-icon>
+              </md-button>
+                <md-button ui-sref="editProject({id:project.id})">
+                <md-icon md-font-set="material-icons">edit</md-icon>
+              </md-button>
+                <md-button ng-click="deleteProject(project)">
+                <md-icon md-font-set="material-icons">delete</md-icon>
+              </md-button>
+            </md-menu-item>
+          </md-menu>
+        </div>
+      </md-list-item>
+    </md-list>
 
-<a href="#/projects/new">New Project</a>
+  <a href="#/projects/new">New Project</a>
+  </md-content>
+</div>

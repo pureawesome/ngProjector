@@ -1,16 +1,20 @@
-<table>
-  <thead>
-    <tr>
-      <td colspan="2">All resources</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="resource in resources">
-      <td><a href="#/resources/{{resource.id}}/view">{{resource.name}}</a></td>
-      <td>{{resource.description}}  </td>
 
-    </tr>
-  </tbody>
-</table>
+<div flex layout="row">
+  <md-content class="md-padding" layout="column">
 
-<a href="#/resources/new">New Resource</a>
+      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch ng-repeat="resource in resources" flex="100" flex-gt-sm='50'>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{resource.name}}</span>
+            <span class="md-subhead">{{resource.description}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button href="#/resources/{{resource.id}}/view">View</md-button>
+          <md-button ui-sref="editResource({id:resource.id})">Edit</md-button>
+          <md-button ng-click="deleteResource(resource)">Delete</md-button>
+        </md-card-actions>
+      </md-card>
+
+  </md-content>
+</div>
