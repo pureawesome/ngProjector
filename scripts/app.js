@@ -63,8 +63,6 @@ angular.module("ngProjector").config(function($stateProvider, $httpProvider) {
     controller: 'HomeCtrl'
   });
 }).run(function($state, $location, $localStorage, $rootScope){
-  // $state.go("home");
-  console.log($localStorage.currentUser);
   // redirect to login page if not logged in and trying to access a restricted page
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
     var publicPages = ['/login'];

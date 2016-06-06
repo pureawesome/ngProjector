@@ -3,18 +3,19 @@ angular.module('ngProjector.services',[])
   return $resource('http://localhost:3000/projects/:id',
   { id: '@id' },
   {
-    // get: {
-    //   method: "GET",
-    //   headers: {
-    //     "Authorization": 'Bearer ' + $localStorage.currentUser.token
-    //   }
-    // },
     update: {method: 'PUT'}
   }
   );
 })
 .factory('Resource', function($resource) {
   return $resource('http://localhost:3000/resources/:id', { id: '@id' },
+    {
+      'update': { method:'PUT' }
+    }
+  );
+})
+.factory('Task', function($resource) {
+  return $resource('http://localhost:3000/projects/:project/tasks/:id', { project: '@project', id: '@id' },
     {
       'update': { method:'PUT' }
     }
@@ -36,13 +37,6 @@ angular.module('ngProjector.services',[])
         if (response.auth_token) {
           // store username and token in local storage to keep user logged in between page refreshes
           $localStorage.currentUser = { email: email, token: response.auth_token };
-
-          // add jwt token to auth header for all requests made by the $http service
-
-          // console.log($httpProvider);
-          // console.log($http.default);
-          // $http.default.headers.common.Authorization = 'Bearer ' + response.auth_token;
-
           // execute callback with true to indicate successful login
           callback(true);
         } else {
@@ -74,8 +68,6 @@ angular.module('ngProjector.services',[])
   }
 })
 .factory('AuthInterceptor', function($q, $injector, $localStorage) {
-  console.log($localStorage);
-  console.log($localStorage.currentUser);
   return {
     request: function(config) {
       var token;
@@ -88,7 +80,7 @@ angular.module('ngProjector.services',[])
       return config;
     },
     responseError: function(response) {
-      if (response.status === 401 || response.status === 403) {
+      if (response.status === 401 || response.status === 403 || response.status === 419) {
         // LocalService.unset('auth_token');
         // $injector.get('$state').go('login');
       }

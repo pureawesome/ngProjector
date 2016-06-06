@@ -20,8 +20,31 @@
         $mdOpenMenu(ev);
       };
     })
-    .controller('ProjectViewCtrl', function($scope, $stateParams, Project) {
-      $scope.project = Project.get({ id: $stateParams.id });
+    .controller('ProjectViewCtrl', function($scope, $stateParams, Project, Task, $mdDialog, $mdMedia) {
+      $scope.data = Project.get({ id: $stateParams.id });
+
+      $scope.showTask = function(id){
+        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+        var task = Task.get({ project: $stateParams.id, id: id });
+
+        $mdDialog.show({
+          controller: ['$scope', 'task', function($scope, task) {
+            $scope.task = task;
+          }],
+          templateUrl: '/partials/task/task-view.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose:true,
+          fullscreen: useFullScreen,
+          locals: { task: task }
+        });
+
+        $scope.$watch(function() {
+          return $mdMedia('xs') || $mdMedia('sm');
+        }, function(wantsFullScreen) {
+          $scope.customFullscreen = (wantsFullScreen === true);
+        });
+      }
     })
     .controller('ProjectCreateCtrl', function($scope, $state, $stateParams, Project) {
       $scope.project = new Project();
@@ -41,11 +64,12 @@
 
       $scope.loadProject = function() {
         $scope.project = Project.get({ id: $stateParams.id });
-        console.log($scope.project);
         $scope.project.start_date = new Date($scope.project.start_date);
-        console.log($scope.project.start_date);
       };
 
       $scope.loadProject();
+    })
+    .controller("DialogController", function($scope, $mdDialog) {
+      console.log('test');
     });
 })();
