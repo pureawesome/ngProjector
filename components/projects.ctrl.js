@@ -20,7 +20,7 @@
         $mdOpenMenu(ev);
       };
     })
-    .controller('ProjectViewCtrl', function($scope, $stateParams, Project, Task, $mdDialog, $mdMedia) {
+    .controller('ProjectViewCtrl', function($scope, $stateParams, Project, Task, Booking, $mdDialog, $mdMedia) {
       $scope.data = Project.get({ id: $stateParams.id });
 
       $scope.showTask = function(id){
@@ -37,6 +37,29 @@
           clickOutsideToClose:true,
           fullscreen: useFullScreen,
           locals: { task: task }
+        });
+
+        $scope.$watch(function() {
+          return $mdMedia('xs') || $mdMedia('sm');
+        }, function(wantsFullScreen) {
+          $scope.customFullscreen = (wantsFullScreen === true);
+        });
+      }
+
+      $scope.showBooking = function(id){
+        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+        var data = Booking.get({ id: id });
+
+        $mdDialog.show({
+          controller: ['$scope', 'data', function($scope, data) {
+            $scope.data = data;
+          }],
+          templateUrl: '/partials/booking/booking-view.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose:true,
+          fullscreen: useFullScreen,
+          locals: { data: data }
         });
 
         $scope.$watch(function() {

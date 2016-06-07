@@ -1,55 +1,51 @@
-<table class="table projecttable">
-  <tr>
-    <td><h3>Details for {{data.project.name}}</h3></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td>{{data.project.name}}</td>
-  </tr>
-  <tr>
-    <td>Description</td>
-    <td>{{data.project.description}}</td>
-  </tr>
-  <tr>
-    <td>Budget</td>
-    <td>{{data.project.budget}}</td>
-  </tr>
-  <tr>
-    <td>Start Date</td>
-    <td>{{data.project.start_date}}</td>
-  </tr>
-</table>
-<table>
-  <thead>
-    Project Subtasks
-  </thead>
-  <tr>
-    <td>
-      Name
-    </td>
-    <td>
-      Description
-    </td>
-    <td>
-      Due Date
-    </td>
-    <td>
+<md-content flex layout="row">
+  <table class="table projecttable">
+    <tr>
+      <td colspan="2"><h3>Details for {{data.project.name}}</h3></td>
+    </tr>
+    <tr>
+      <td>Name</td><td>{{data.project.name}}</td>
+    </tr>
+    <tr>
+      <td>Description</td><td>{{data.project.description}}</td>
+    </tr>
+    <tr>
+      <td>Budget</td><td>{{data.project.budget}}</td>
+    </tr>
+    <tr>
+      <td>Start Date</td><td>{{data.project.start_date}}</td>
+    </tr>
+  </table>
+</md-content>
+<md-content flex layout="row">
+  <md-content layout="column">
+    <table>
+      <thead>
+        Project Subtasks
+      </thead>
+      <tr><td>Name</td><td>Description</td><td>Due Date</td></tr>
+      <tr ng-repeat="task in data.tasks">
+        <td><a ng-click="showTask(task.id)" href="">{{task.name}}</a></td>
+        <td>{{task.description}}</td>
+        <td>{{task.due_date}}</td>
+      </tr>
+    </table>
+  </md-content>
 
-    </td>
-  </tr>
-  <tr ng-repeat="task in data.tasks">
-    <td>
-      <a ng-click="showTask(task.id)" href="">{{task.name}}</a>
-    </td>
-    <td>
-      {{task.description}}
-    </td>
-    <td>
-      {{task.due_date}}
-    </td>
-  </tr>
-</table>
+  <md-content layout="column">
+    <table>
+      <thead>
+        Project Bookings
+      </thead>
+      <tr><td>Booking ID</td><td>Start</td></tr>
+      <tr ng-repeat="booking in data.bookings">
+        <td><a ng-click="showBooking(booking.id)" href="">{{booking.resource_id}}</a></td>
+        <td>{{booking.start_datetime}}</td>
+      </tr>
+    </table>
+  </md-content>
+</md-content>
+
 <div>
   <md-button class="md-raised md-primary" ui-sref="editProject({id:data.project.id})">Edit</md-button>
 </div>

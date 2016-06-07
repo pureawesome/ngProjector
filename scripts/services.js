@@ -21,6 +21,13 @@ angular.module('ngProjector.services',[])
     }
   );
 })
+.factory('Booking', function($resource) {
+  return $resource('http://localhost:3000/bookings/:id', { id: '@id' },
+    {
+      'update': { method:'PUT' }
+    }
+  );
+})
 .factory('Authentication', function($http, $localStorage) {
   var service = {};
 
@@ -61,9 +68,17 @@ angular.module('ngProjector.services',[])
   return service;
 
   function Create(email, password, password_confirmation, callback) {
-    $http.post('http://localhost:3000/users/', {email: email, password: password, password_confirmation: password_confirmation})
+    $http.post('http://localhost:3000/register/', {email: email, password: password, password_confirmation: password_confirmation})
     .success(function(response) {
-      console.log('shit worked');
+      if (response.auth_token) {
+        // store username and token in local storage to keep user logged in between page refreshes
+        $localStorage.currentUser = { email: email, token: response.auth_token };
+        // execute callback with true to indicate successful login
+        callback(true);
+      } else {
+        // execute callback with false to indicate failed login
+        callback(false);
+      }
     });
   }
 })

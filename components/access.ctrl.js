@@ -27,15 +27,19 @@
         });
       };
     })
-    .controller("RegisterCtrl", function(Registration) {
+    .controller("RegisterCtrl", function($location, Registration) {
       var vm = this;
 
       vm.register = register;
 
       function register() {
-        console.log('register');
-        Registration.Create(vm.email, vm.password, vm.confirmPassowrd, function(result) {
-          console.log('callback');
+        Registration.Create(vm.email, vm.password, vm.confirmPassword, function(result) {
+          if (result === true) {
+            $location.path('/');
+          } else {
+            vm.error = 'Registration Fail';
+            vm.loading = false;
+          }
         })
       }
     });

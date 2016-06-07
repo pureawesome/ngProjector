@@ -1,4 +1,4 @@
-angular.module("ngProjector", ["ui.router", "ngResource", "ngMaterial", "ngMessages", "ngStorage", "ngProjector.projectsCtrl", "ngProjector.resourcesCtrl", "ngProjector.accessCtrl", "ngProjector.services"]);
+angular.module("ngProjector", ["ui.router", "ngResource", "ngMaterial", "ngMessages", "ngStorage", "ngProjector.indexCtrl", "ngProjector.projectsCtrl", "ngProjector.resourcesCtrl", "ngProjector.accessCtrl", "ngProjector.services"]);
 
 angular.module("ngProjector").config(function($stateProvider, $httpProvider) {
   $stateProvider
@@ -65,7 +65,7 @@ angular.module("ngProjector").config(function($stateProvider, $httpProvider) {
 }).run(function($state, $location, $localStorage, $rootScope){
   // redirect to login page if not logged in and trying to access a restricted page
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
-    var publicPages = ['/login'];
+    var publicPages = ['/login', '/register'];
     var restrictedPage = publicPages.indexOf($location.path()) === -1;
     if (restrictedPage && !$localStorage.currentUser) {
       $location.path('/login');
