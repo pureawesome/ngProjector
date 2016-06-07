@@ -3,19 +3,19 @@
 
   angular
     .module("ngProjector.resourcesCtrl", [])
-    .controller("ResourceListCtrl", function ($scope, $stateParams, Resource) {
+    .controller("ResourceListCtrl", function ($scope, $state, $stateParams, Resource) {
       $scope.resources = Resource.query();
 
       $scope.deleteResource = function(resource) {
-        if (popupService.showPopup('Really delete this?')) {
+        // if (popupService.showPopup('Really delete this?')) {
           resource.$delete(function() {
-            $window.location.href = '';
+            $state.go($state.current, {}, {reload: true});
           });
-        }
+        // }
       };
     })
     .controller('ResourceViewCtrl', function($scope, $stateParams, Resource) {
-      $scope.resource = Resource.get({ id: $stateParams.id });
+      $scope.data = Resource.get({ id: $stateParams.id });
     })
     .controller('ResourceCreateCtrl', function($scope, $state, $stateParams, Resource) {
       $scope.resource = new Resource();
@@ -28,13 +28,14 @@
     })
     .controller('ResourceEditCtrl', function($scope, $state, $stateParams, Resource) {
       $scope.updateResource = function() {
-        $scope.resource.$update(function() {
-          $state.go('resources');
-        });
+        Resource.update($scope.resource)
+        $state.go('resources');
       };
 
       $scope.loadResource = function() {
-        $scope.resource = Resource.get({ id: $stateParams.id });
+        Resource.get({ id: $stateParams.id }, function(data) {
+          $scope.resource = data.resource;
+        });
       };
 
       $scope.loadResource();

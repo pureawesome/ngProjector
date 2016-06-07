@@ -1,32 +1,25 @@
 angular.module('ngProjector.services',[])
-.factory('Project', function($resource, $localStorage) {
-  return $resource('http://localhost:3000/projects/:id',
-  { id: '@id' },
-  {
-    update: {method: 'PUT'}
-  }
-  );
+.factory('Project', function($resource) {
+  return $resource('http://localhost:3000/projects/:id', { id: '@id' }, {
+    update:{
+      method:'PUT'
+    }
+  });
 })
 .factory('Resource', function($resource) {
-  return $resource('http://localhost:3000/resources/:id', { id: '@id' },
-    {
-      'update': { method:'PUT' }
-    }
-  );
+  return $resource('http://localhost:3000/resources/:id', { id: '@id' }, {
+    'update': { method:'PUT' }
+  });
 })
 .factory('Task', function($resource) {
-  return $resource('http://localhost:3000/projects/:project/tasks/:id', { project: '@project', id: '@id' },
-    {
-      'update': { method:'PUT' }
-    }
-  );
+  return $resource('http://localhost:3000/projects/:project/tasks/:id', { project: '@project', id: '@id' }, {
+    'update': { method:'PUT' }
+  });
 })
 .factory('Booking', function($resource) {
-  return $resource('http://localhost:3000/bookings/:id', { id: '@id' },
-    {
-      'update': { method:'PUT' }
-    }
-  );
+  return $resource('http://localhost:3000/bookings/:id', { id: '@id' }, {
+    'update': { method:'PUT' }
+  });
 })
 .factory('Authentication', function($http, $localStorage) {
   var service = {};

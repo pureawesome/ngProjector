@@ -1,17 +1,17 @@
 <table class="table resourcetable">
   <tr>
-    <td><h3>Details for {{resource.name}}</h3></td>
+    <td><h3>Details for {{data.resource.name}}</h3></td>
     <td></td>
   </tr>
   <tr>
     <td>Name</td>
-    <td>{{resource.name}}</td>
+    <td>{{data.resource.name}}</td>
   </tr>
   <tr>
     <td>Description</td>
-    <td>{{resource.description}}</td>
+    <td>{{data.resource.description}}</td>
   </tr>
 </table>
 <div>
-  <md-button class="md-raised md-primary" ui-sref="editResource({id:resource.id})">Edit</md-button>
+  <md-button class="md-raised md-primary" ui-sref="editResource({id:data.resource.id})">Edit</md-button>
 </div>

@@ -3,13 +3,13 @@
 
   angular
     .module("ngProjector.projectsCtrl", [])
-    .controller("ProjectListCtrl", function ($scope, $stateParams, Project) {
+    .controller("ProjectListCtrl", function ($scope, $state, $stateParams, Project) {
       $scope.projects = Project.query();
 
       $scope.deleteProject = function(project) {
         // if (popupService.showPopup('Really delete this?')) {
           project.$delete(function() {
-            $window.location.href = '';
+            $state.go($state.current, {}, {reload: true});
           });
         // }
       };
@@ -80,14 +80,17 @@
     })
     .controller('ProjectEditCtrl', function($scope, $state, $stateParams, Project) {
       $scope.updateProject = function() {
-        $scope.project.$update(function() {
-          $state.go('projects');
-        });
+        Project.update($scope.project);
+        $state.go('projects');
       };
 
       $scope.loadProject = function() {
-        $scope.project = Project.get({ id: $stateParams.id });
-        $scope.project.start_date = new Date($scope.project.start_date);
+        Project.get({ id: $stateParams.id }, function(data){
+          $scope.project = data.project;
+          $scope.project.start_date = new Date(data.project.start_date);
+          $scope.project.projected_end_date = new Date(data.project.projected_end_date);
+          $scope.project.actual_end_date = new Date(data.project.actual_end_date);
+        });
       };
 
       $scope.loadProject();
