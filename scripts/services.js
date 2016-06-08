@@ -21,6 +21,14 @@ angular.module('ngProjector.services',[])
     'update': { method:'PUT' }
   });
 })
+.factory('Translation', function($resource) {
+  return $resource('http://localhost:3000/translations', {}, {
+    'query': {
+      method:'GET',
+      isArray: false,
+    }
+  });
+})
 .factory('Authentication', function($http, $localStorage) {
   var service = {};
 

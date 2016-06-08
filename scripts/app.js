@@ -56,6 +56,12 @@ angular.module("ngProjector").config(function($stateProvider, $httpProvider) {
     controller: 'RegisterCtrl',
     controllerAs: 'vm'
   })
+  .state('translations', {
+    url: '/translations',
+    templateUrl: 'partials/translations/translations.html',
+    controller: 'TranslationCtrl',
+    controllerAs: 'vm'
+  })
 
   .state("home", {
     url: '/',
