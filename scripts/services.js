@@ -107,6 +107,12 @@ angular.module('ngProjector.services',[])
 .config(function($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 })
+.config(['$translateProvider', function ($translateProvider) {
+  $translateProvider.useUrlLoader('http://localhost:3000/language');
+  $translateProvider.preferredLanguage('en');
+  $translateProvider.useSanitizeValueStrategy('escape');
+  $translateProvider.useLocalStorage();
+}])
 .service('popupService',function($window){
   this.showPopup=function(message){
     return $window.confirm(message);
